@@ -1,9 +1,9 @@
 {
 	"id": "quick input",
-	"name": "Quick input plugin",
+	"name": "Quick input",
 	"version": "0.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Quick input plugin",
+	"description": "Quick input",
 	"author": "Obsidian",
 	"authorUrl": "https://obsidian.md",
 	"isDesktopOnly": false
