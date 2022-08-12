@@ -2,7 +2,7 @@ import { Modal } from "obsidian";
 import ModalLayout from "./UI/ModalLayout.svelte";
 import type QuickInputPlugin from './main';
 export default class InputModal extends Modal {
-	constructor(plugin: QuickInputPlugin){
+	constructor(private plugin: QuickInputPlugin){
 		super(plugin.app)
 	}
 	public onOpen = (): void => {
@@ -12,6 +12,9 @@ export default class InputModal extends Modal {
 
 		new ModalLayout({
 			target: contentEl,
+			props: {
+				plugin: this.plugin
+			}
 		});
 	};
 }

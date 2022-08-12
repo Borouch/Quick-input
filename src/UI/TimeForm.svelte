@@ -25,6 +25,7 @@
 <div class="label">Time</div>
 <input
 	id="time-input"
+	class="form-input"
 	on:focus={() => {
 		showTimePicker = true;
 	}}
@@ -34,7 +35,12 @@
 {#if showTimePicker}
 	<div id="time-picker-wrapper">
 		<TimePicker
-			options={{ hasButtons: true, is24h: true, minutesIncrement: 5 }}
+			options={{
+				color: "var(--text-normal)",
+				hasButtons: true,
+				is24h: true,
+				minutesIncrement: 5,
+			}}
 			bind:date
 			on:cancel={() => {
 				showTimePicker = false;
@@ -53,22 +59,23 @@
 		width: min-content;
 	}
 
-	:global(.quick-input__content ._tp-button) {
+	:global(.quick-input__content #time-picker-wrapper ._tp-button) {
 		background-color: transparent;
 		color: var(--text-accent);
 		transition: none;
 	}
-	:global(.quick-input__content ._tp-button:hover) {
+
+	:global(.quick-input__content #time-picker-wrapper ._tp-button:hover) {
 		background-color: var(--background-modifier-form-field-highlighted);
 		color: var(--text-normal);
 	}
 
-	:global(.quick-input__content ._tp-container) {
-		border: 1px solid rgba(103, 113, 137, 0.3);
+	:global(.quick-input__content #time-picker-wrapper ._tp-container) {
+		border: 1px solid var(--background-modifier-border);
 		background-color: var(--background-primary);
 	}
 
-	:global(.quick-input__content ._tp-wrapper) {
+	:global(.quick-input__content #time-picker-wrapper ._tp-wrapper) {
 		background-color: var(
 			--background-modifier-form-field-highlighted
 		) !important;

@@ -24,9 +24,14 @@
 	},
 	"dependencies": {
 		"@tsconfig/svelte": "^3.0.0",
+		"@types/fuse": "^2.6.0",
+		"@types/lunr": "^2.3.4",
 		"date-fns": "^2.29.1",
 		"date-picker-svelte": "^2.1.0",
+		"elasticlunrjs": "^1.0.1",
 		"esbuild-svelte": "^0.7.1",
+		"fuse.js": "^6.6.2",
+		"lunr": "^2.3.9",
 		"svelte-preprocess": "^4.10.7"
 	}
 }

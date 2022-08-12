@@ -1,3 +1,8 @@
-.quick-input__content {
-   overflow: visible
+.quick-input__modal .quick-input__content {
+   overflow: none;
+   border:none;
+   scrollbar-width: none !important;
+}
+.quick-input__modal{
+    overflow-y:auto;
 }

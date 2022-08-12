@@ -14,11 +14,11 @@
 
 	$: locale = localeFromDateFnsLocale(dateFnsLocale);
 
-	afterUpdate(() => {
-		if (showDatePicker) {
-			resizePicker();
-		}
-	});
+	// afterUpdate(() => {
+	// 	if (showDatePicker) {
+	// 		resizePicker();
+	// 	}
+	// });
 
 	const resizePicker = () => {
 		let datePickerEl = document.querySelector(
@@ -60,6 +60,7 @@
 <div class="label">Date</div>
 <input
 	id="date-input"
+	class="form-input"
 	on:focus={() => {
 		showDatePicker = true;
 	}}
