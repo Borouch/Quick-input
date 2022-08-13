@@ -2,6 +2,7 @@
 	import DateForm from "./DateForm.svelte";
 	import TimeForm from "./TimeForm.svelte";
 	import MultiSelectForm from "./MultiSelectForm.svelte";
+    import RatingForm from "./RatingForm.svelte";
     import type QuickInputPlugin from "src/main";
     export let plugin: QuickInputPlugin
 	const dateFormat = "yyyy-MM-DD";
@@ -15,7 +16,7 @@
     <DateForm bind:date format={dateFormat} />
     <TimeForm bind:date {timeFormat} />
     <MultiSelectForm  {displayItems} {actualItems}/>
-
+    <RatingForm scaleSize={10}></RatingForm>
 <style>
 	:global(.quick-input__content input::placeholder, .quick-input__content
 			textarea::placeholder) {

@@ -1,8 +1,9 @@
 .quick-input__modal .quick-input__content {
-   overflow: none;
+   overflow: unset;
    border:none;
    scrollbar-width: none !important;
 }
 .quick-input__modal{
     overflow-y:auto;
+    overflow-x: unset;
 }
