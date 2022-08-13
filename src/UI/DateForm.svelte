@@ -20,29 +20,29 @@
 	// 	}
 	// });
 
-	const resizePicker = () => {
-		let datePickerEl = document.querySelector(
-			".date-time-picker"
-		) as HTMLElement;
-		if (datePickerEl) {
-			let content = document.querySelector(
-				".quick-input__content"
-			) as HTMLElement;
-			let contentWidth = content.innerWidth;
-			let pickerWidth = datePickerEl.getBoundingClientRect().width;
-			let pickerHeight = datePickerEl.getBoundingClientRect().height;
-			let scaleRatio = Number(
-				(contentWidth / pickerWidth).toPrecision(5)
-			);
-			let pickerWrapper = document.getElementById(
-				"date-picker-wrapper"
-			) as HTMLElement;
-			datePickerEl.style.transform = `scale(${scaleRatio})`;
-			const wrapperHeight =
-				pickerHeight * Number(scaleRatio.toPrecision(5));
-			pickerWrapper.style.height = wrapperHeight.toString() + "px";
-		}
-	};
+	// const resizePicker = () => {
+	// 	let datePickerEl = document.querySelector(
+	// 		".date-time-picker"
+	// 	) as HTMLElement;
+	// 	if (datePickerEl) {
+	// 		let content = document.querySelector(
+	// 			".quick-input__content"
+	// 		) as HTMLElement;
+	// 		let contentWidth = content.innerWidth;
+	// 		let pickerWidth = datePickerEl.getBoundingClientRect().width;
+	// 		let pickerHeight = datePickerEl.getBoundingClientRect().height;
+	// 		let scaleRatio = Number(
+	// 			(contentWidth / pickerWidth).toPrecision(5)
+	// 		);
+	// 		let pickerWrapper = document.getElementById(
+	// 			"date-picker-wrapper"
+	// 		) as HTMLElement;
+	// 		datePickerEl.style.transform = `scale(${scaleRatio})`;
+	// 		const wrapperHeight =
+	// 			pickerHeight * Number(scaleRatio.toPrecision(5));
+	// 		pickerWrapper.style.height = wrapperHeight.toString() + "px";
+	// 	}
+	// };
 
 	onMount(() => {
 		const modal = document.querySelector(".quick-input__modal");
