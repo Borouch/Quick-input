@@ -13,10 +13,10 @@
     const actualItems = files.map((f)=>f.path)
 </script>
 
-    <DateForm bind:date format={dateFormat} />
-    <TimeForm bind:date {timeFormat} />
-    <MultiSelectForm  {displayItems} {actualItems}/>
-    <RatingForm scaleSize={10}></RatingForm>
+    <DateForm name='Date' bind:date format={dateFormat} />
+    <TimeForm name='Time' bind:date {timeFormat} />
+    <MultiSelectForm name='Exercises' {displayItems} {actualItems}/>
+    <RatingForm  name='Mood' scaleSize={10}></RatingForm>
 <style>
 	:global(.quick-input__content input::placeholder, .quick-input__content
 			textarea::placeholder) {
@@ -38,10 +38,6 @@
 		outline: none;
 	}
 
-	:global(.quick-input__content .label) {
-		padding-bottom: 0.5rem;
-		color: var(--text-faint);
-	}
 
 	:global(.quick-input__content) {
 		--date-picker-foreground: var(--text-muted);

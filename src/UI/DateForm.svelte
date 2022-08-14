@@ -7,7 +7,10 @@
 	import { enUS } from "date-fns/locale";
 	import { onMount, afterUpdate } from "svelte";
 	import { handlePickerDisplay } from "src/Helpers/Helpers";
+	import FormWrapper from "./FormWrapper.svelte";
+
 	export let format: string;
+	export let name:string;
 	export let date: Date;
 	let dateFnsLocale = enUS;
 	let showDatePicker = false;
@@ -57,27 +60,28 @@
 	});
 </script>
 
-<div class="label">Date</div>
-<input
-	id="date-input"
-	class="form-input"
-	on:focus={() => {
-		showDatePicker = true;
-	}}
-	value={window.moment(date).format(format)}
-	type="text"
-/>
-{#if showDatePicker}
-	<div id="date-picker-wrapper">
-		<DatePicker
-			on:select={() => {
-				showDatePicker = false;
-			}}
-			bind:value={date}
-			{locale}
-		/>
-	</div>
-{/if}
+<FormWrapper {name}>
+	<input
+		id="date-input"
+		class="form-input"
+		on:focus={() => {
+			showDatePicker = true;
+		}}
+		value={window.moment(date).format(format)}
+		type="text"
+	/>
+	{#if showDatePicker}
+		<div id="date-picker-wrapper">
+			<DatePicker
+				on:select={() => {
+					showDatePicker = false;
+				}}
+				bind:value={date}
+				{locale}
+			/>
+		</div>
+	{/if}
+</FormWrapper>
 
 <style>
 	:global(#date-picker-wrapper > .date-time-picker) {

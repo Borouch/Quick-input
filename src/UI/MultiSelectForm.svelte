@@ -3,7 +3,8 @@
 	import SuggestItem from "./SuggestItem.svelte";
 	import { onMount } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
-
+	import FormWrapper from "./FormWrapper.svelte";
+	export let name: string;
 	export let displayItems: string[];
 	export let actualItems: string[];
 
@@ -23,9 +24,9 @@
 		searchQuery = "";
 		selectedItemsIdx.push(idx);
 		selectedItemsIdx = selectedItemsIdx;
-		shouldHandleDisplay=false;
+		shouldHandleDisplay = false;
 		// We set this to true to account for potential race conditions when handling picker display with suggest item
-		showMultiselectPicker=true
+		showMultiselectPicker = true;
 	};
 
 	const onDeselect = (idx: number) => {
@@ -49,8 +50,8 @@
 					"selected-items-container",
 					showMultiselectPicker
 				);
-			}else{
-				shouldHandleDisplay=true
+			} else {
+				shouldHandleDisplay = true;
 			}
 		});
 	});
@@ -65,43 +66,44 @@
 </script>
 
 <div class="multiselect__form">
-	<div class="label">Exercises</div>
-	<div
-		on:click={() => {
-			showMultiselectPicker = true;
-		}}
-		on:keydown={preventInput}
-		contenteditable={true}
-		id={`selected-items-container`}
-		class={`form-input ${selectedFormClass}`}
-	>
-		{#each selectedItemsIdx as idx (idx)}
-			<SuggestItem
-				onClick={() => onDeselect(idx)}
-				displayItem={displayItems[idx]}
-			/>
-		{/each}
-	</div>
-	{#if showMultiselectPicker}
-		<div id="multiselect__suggestions" class="form-input">
-			<input
-				bind:value={searchQuery}
-				class="form-input multiselect__search"
-				type="text"
-				placeholder="Search"
-			/>
-			<div class="suggestions-container">
-				{#each displayItems as displayItem, idx (idx)}
-					{#if (!searchQuery || filteredItemsIdx.contains(idx)) && !selectedItemsIdx.contains(idx)}
-						<SuggestItem
-							onClick={() => onSelect(idx)}
-							{displayItem}
-						/>
-					{/if}
-				{/each}
-			</div>
+	<FormWrapper {name}>
+		<div
+			on:click={() => {
+				showMultiselectPicker = true;
+			}}
+			on:keydown={preventInput}
+			contenteditable={true}
+			id={`selected-items-container`}
+			class={`form-input ${selectedFormClass}`}
+		>
+			{#each selectedItemsIdx as idx (idx)}
+				<SuggestItem
+					onClick={() => onDeselect(idx)}
+					displayItem={displayItems[idx]}
+				/>
+			{/each}
 		</div>
-	{/if}
+		{#if showMultiselectPicker}
+			<div id="multiselect__suggestions" class="form-input">
+				<input
+					bind:value={searchQuery}
+					class="form-input multiselect__search"
+					type="text"
+					placeholder="Search"
+				/>
+				<div class="suggestions-container">
+					{#each displayItems as displayItem, idx (idx)}
+						{#if (!searchQuery || filteredItemsIdx.contains(idx)) && !selectedItemsIdx.contains(idx)}
+							<SuggestItem
+								onClick={() => onSelect(idx)}
+								{displayItem}
+							/>
+						{/if}
+					{/each}
+				</div>
+			</div>
+		{/if}
+	</FormWrapper>
 </div>
 
 <style>

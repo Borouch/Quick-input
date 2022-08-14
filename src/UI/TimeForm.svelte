@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { TimePicker } from "svelte-time-picker";
+	export let name:string;
 	export let date: Date;
 	export let timeFormat: string;
 	import { onMount } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
+	import FormWrapper from "./FormWrapper.svelte";
+
 	let initialDate = window.moment(date);
 	let showTimePicker = false;
 	onMount(() => {
@@ -22,37 +25,39 @@
 	});
 </script>
 
-<div class="label">Time</div>
-<input
-	id="time-input"
-	class="form-input"
-	on:focus={() => {
-		showTimePicker = true;
-	}}
-	type="text"
-	value={window.moment(date).format(timeFormat)}
-/>
-{#if showTimePicker}
-	<div id="time-picker-wrapper">
-		<TimePicker
-			options={{
-				color: "var(--text-normal)",
-				hasButtons: true,
-				is24h: true,
-				minutesIncrement: 5,
-			}}
-			bind:date
-			on:cancel={() => {
-				showTimePicker = false;
-				date = initialDate.toDate();
-			}}
-			on:ok={() => {
-				showTimePicker = false;
-				initialDate = window.moment(date);
-			}}
-		/>
-	</div>
-{/if}
+<FormWrapper {name}>
+
+	<input
+		id="time-input"
+		class="form-input"
+		on:focus={() => {
+			showTimePicker = true;
+		}}
+		type="text"
+		value={window.moment(date).format(timeFormat)}
+	/>
+	{#if showTimePicker}
+		<div id="time-picker-wrapper">
+			<TimePicker
+				options={{
+					color: "var(--text-normal)",
+					hasButtons: true,
+					is24h: true,
+					minutesIncrement: 5,
+				}}
+				bind:date
+				on:cancel={() => {
+					showTimePicker = false;
+					date = initialDate.toDate();
+				}}
+				on:ok={() => {
+					showTimePicker = false;
+					initialDate = window.moment(date);
+				}}
+			/>
+		</div>
+	{/if}
+</FormWrapper>
 
 <style>
 	#time-picker-wrapper {
