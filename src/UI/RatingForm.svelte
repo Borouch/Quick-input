@@ -3,6 +3,7 @@
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import { onMount } from "svelte";
 	import FormWrapper from "./FormWrapper.svelte";
+	export let optional:boolean;
 	export let name:string;
 	export let scaleSize: 5 | 10;
 	export let reverseColors = false;
@@ -29,7 +30,7 @@
 
 <div class="rating-form">
 
-	<FormWrapper {name}>
+	<FormWrapper {optional} {name}>
 		<input
 			on:click={() => {
 				showRatingPicker = true;

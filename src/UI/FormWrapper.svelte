@@ -1,13 +1,17 @@
 <script lang="ts">
 	export let name: string;
+	export let optional:boolean;
+
 	let isHidden = false;
 </script>
 
 <div class="header">
 	<div class="label">{name}</div>
+	{#if optional}
 	<span on:click={()=>{isHidden=!isHidden}} class="fold-btn">{isHidden ? "+" : "-"}</span>
+	{/if}
 </div>
-{#if isHidden}
+{#if !isHidden}
 	<slot />
 {/if}
 

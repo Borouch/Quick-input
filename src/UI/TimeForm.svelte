@@ -3,6 +3,8 @@
 	export let name:string;
 	export let date: Date;
 	export let timeFormat: string;
+	export let optional:boolean;
+
 	import { onMount } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
@@ -25,7 +27,7 @@
 	});
 </script>
 
-<FormWrapper {name}>
+<FormWrapper {optional} {name}>
 
 	<input
 		id="time-input"

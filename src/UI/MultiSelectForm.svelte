@@ -4,6 +4,7 @@
 	import { onMount } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
+	export let optional:boolean;
 	export let name: string;
 	export let displayItems: string[];
 	export let actualItems: string[];
@@ -66,16 +67,17 @@
 </script>
 
 <div class="multiselect__form">
-	<FormWrapper {name}>
+	<FormWrapper {optional} {name}>
 		<div
 			on:click={() => {
 				showMultiselectPicker = true;
 			}}
+			placeholder="Click to select items"
 			on:keydown={preventInput}
 			contenteditable={true}
 			id={`selected-items-container`}
 			class={`form-input ${selectedFormClass}`}
-		>
+		>	
 			{#each selectedItemsIdx as idx (idx)}
 				<SuggestItem
 					onClick={() => onDeselect(idx)}

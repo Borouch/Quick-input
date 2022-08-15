@@ -8,12 +8,25 @@
 	import { onMount, afterUpdate } from "svelte";
 	import { handlePickerDisplay } from "src/Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
-
-	export let format: string;
+	import type FormOutput from '../FormOutput';
+	export let optional: boolean
+	export let dateFormat: string;
 	export let name:string;
-	export let date: Date;
+	export let date: Date = new Date();
+	export let formOutput: FormOutput;
+
+	let outputData = {name: name, date: window.moment(date).format(dateFormat)}
+	formOutput.dateForm.push(outputData)
 	let dateFnsLocale = enUS;
 	let showDatePicker = false;
+
+	$:{
+		updateOutputData(date)
+	}
+
+	const updateOutputData = (date: Date)=>{
+		outputData.date = window.moment(date).format(dateFormat)
+	}
 
 	$: locale = localeFromDateFnsLocale(dateFnsLocale);
 
@@ -60,14 +73,14 @@
 	});
 </script>
 
-<FormWrapper {name}>
+<FormWrapper {optional} {name}>
 	<input
 		id="date-input"
 		class="form-input"
 		on:focus={() => {
 			showDatePicker = true;
 		}}
-		value={window.moment(date).format(format)}
+		value={window.moment(date).format(dateFormat)}
 		type="text"
 	/>
 	{#if showDatePicker}
