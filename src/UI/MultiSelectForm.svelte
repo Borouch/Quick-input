@@ -5,6 +5,7 @@
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
 	import FormOutput from "../FormOutput";
+	import type { sortSearchResults } from "obsidian";
 	export let name: string;
 	export let optional: boolean = true;
 	export let displayItems: string[];
@@ -41,7 +42,11 @@
 			includeScore: true,
 		};
 		const fuse = new Fuse(displayItems, options);
-		filteredItemsIdx = fuse.search(searchQuery).map((e) => e.refIndex);
+		const searchResults = fuse
+			.search(searchQuery)
+			.filter((e) => e.score <= 0.5);
+		console.log(searchResults);
+		filteredItemsIdx = searchResults.map((e) => e.refIndex);
 	};
 
 	const onSelect = (idx: number) => {
@@ -77,11 +82,20 @@
 	});
 
 	$: selectedFormClass = showMultiselectPicker ? "form--selected" : "";
+	$: addBtnClass = searchQuery !== "" ? "--active" : "";
+
 	const preventInput = (e: Event) => {
 		e.preventDefault();
 		return false;
 	};
+
+	const addCustomItem = ()=>{
+		displayItems.push(searchQuery)
+		actualItems.push(searchQuery)
+		onSelect(displayItems.length-1)
+	}
 </script>
+
 
 <div class="multiselect__form">
 	<FormWrapper {optional} {name}>
@@ -104,12 +118,15 @@
 		</div>
 		{#if showMultiselectPicker}
 			<div id="multiselect__suggestions" class="form-input">
-				<input
-					bind:value={searchQuery}
-					class="form-input multiselect__search"
-					type="text"
-					placeholder="Search / add"
-				/>
+				<div class="multiselect__search-container">
+					<input
+						bind:value={searchQuery}
+						class="form-input multiselect__search"
+						type="text"
+						placeholder="Search / add"
+					/>
+					<span on:click={addCustomItem} class={`add-btn ${addBtnClass}`}><span>+</span></span>
+				</div>
 				<div class="suggestions-container">
 					{#each displayItems as displayItem, idx (idx)}
 						{#if (!searchQuery || filteredItemsIdx.contains(idx)) && !selectedItemsIdx.contains(idx)}
@@ -135,8 +152,35 @@
 		background-color: var(--background-modifier-form-field-highlighted);
 	}
 
+	.add-btn > span {
+		color: var(--text-muted);
+		font-size: 1.5rem;
+	}
+
+	.add-btn.--active {
+		opacity: 1;
+	}
+
+	.add-btn {
+		position: absolute;
+		top: 50%;
+		right: 4px;
+		display: flex;
+		justify-content: center;
+		padding-top: 4px;
+		border-radius: 10px;
+		width: 36px;
+		height: 36px;
+		background-color: var(--text-accent);
+		opacity: 0.6;
+		transform: translateY(-50%);
+	}
+	.multiselect__search-container {
+		position: relative;
+	}
 	input.multiselect__search {
 		padding: 24px 16px;
+		margin-bottom: 0px;
 		border: none;
 		border-bottom: 1px solid var(--background-modifier-border);
 	}
@@ -154,6 +198,7 @@
 	}
 
 	.suggestions-container {
+		margin-top: 16px;
 		padding: 8px 16px;
 		padding-top: 0px;
 		display: flex;
