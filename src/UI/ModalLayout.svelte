@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DateForm from "./DateForm.svelte";
 	import TimeForm from "./TimeForm.svelte";
-	import MultiSelectForm from "./MultiSelectForm.svelte";
+	import MultiselectForm from "./MultiselectForm.svelte";
 	import RatingForm from "./RatingForm.svelte";
 	import type QuickInputPlugin from "src/main";
 	import type FormOutput from "src/FormOutput";
@@ -17,12 +17,7 @@
 		formOutput: FormOutput;
 	}
 
-	const dateFormat = "yyyy-MM-DD";
-	const timeFormat = "HH:mm";
-	let date = new Date();
 	const files = plugin.app.vault.getFiles();
-	const displayItems = files.map((f) => f.name);
-	const actualItems = files.map((f) => f.path);
 	const getFullLayoutData = () => {
 		let _fullLayoutData: FullLayoutData[] = [];
 		for (const form of partialLayoutData) {
@@ -33,7 +28,7 @@
 			} else if (form.formType === "Time") {
 				layoutComponent = TimeForm;
 			} else if (form.formType === "Multiselect") {
-				layoutComponent = MultiSelectForm;
+				layoutComponent = MultiselectForm;
 			} else if (form.formType === "Rating") {
 				layoutComponent = RatingForm;
 			}

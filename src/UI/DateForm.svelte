@@ -9,17 +9,18 @@
 	import { handlePickerDisplay } from "src/Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
 	import type FormOutput from '../FormOutput';
-	export let optional: boolean
-	export let dateFormat: string;
+	export let optional: boolean = true
+	export let dateFormat: string = "yyyy-MM-DD";
 	export let name:string;
 	export let date: Date = new Date();
 	export let formOutput: FormOutput;
 
-	let outputData = {name: name, date: window.moment(date).format(dateFormat)}
-	formOutput.dateForm.push(outputData)
 	let dateFnsLocale = enUS;
 	let showDatePicker = false;
-
+	
+	let outputData = {name: name, date: window.moment(date).format(dateFormat)}
+	formOutput.dateForm.push(outputData)
+	
 	$:{
 		updateOutputData(date)
 	}

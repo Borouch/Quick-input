@@ -1,13 +1,29 @@
 <script lang="ts">
 	import { TimePicker } from "svelte-time-picker";
-	export let name:string;
-	export let date: Date;
-	export let timeFormat: string;
-	export let optional:boolean;
-
 	import { onMount } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
+	import FormOutput from "../FormOutput";
+
+	export let name: string;
+	export let date: Date = new Date();
+	export let timeFormat: string = "HH:mm";
+	export let optional: boolean = true;
+	export let formOutput: FormOutput;
+
+	let outputData = {
+		name: name,
+		time: window.moment(date).format(timeFormat),
+	};
+	formOutput.timeForm.push(outputData);
+
+	$: {
+		updateOutputData(date);
+	}
+
+	const updateOutputData = (date: Date) => {
+		outputData.time = window.moment(date).format(timeFormat);
+	};
 
 	let initialDate = window.moment(date);
 	let showTimePicker = false;
@@ -28,7 +44,6 @@
 </script>
 
 <FormWrapper {optional} {name}>
-
 	<input
 		id="time-input"
 		class="form-input"

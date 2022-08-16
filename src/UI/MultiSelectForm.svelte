@@ -4,10 +4,33 @@
 	import { onMount } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
-	export let optional:boolean;
+	import FormOutput from "../FormOutput";
 	export let name: string;
+	export let optional: boolean = true;
 	export let displayItems: string[];
 	export let actualItems: string[];
+
+	export let formOutput: FormOutput;
+
+	let filteredItemsIdx: number[] = [];
+	let selectedItemsIdx: number[] = [];
+	let showMultiselectPicker = false;
+	let shouldHandleDisplay = true;
+
+	let outputData = {
+		name: name,
+		selectItems: [""],
+	};
+
+	formOutput.multiselectForm.push(outputData);
+
+	$: {
+		updateOutputData(selectedItemsIdx);
+	}
+
+	const updateOutputData = (_selectedItemsIdx: number[]) => {
+		outputData.selectItems = _selectedItemsIdx.map((i) => actualItems[i]);
+	};
 
 	let searchQuery = "";
 	$: {
@@ -35,10 +58,6 @@
 		selectedItemsIdx = selectedItemsIdx;
 	};
 
-	let filteredItemsIdx: number[] = [];
-	let selectedItemsIdx: number[] = [];
-	let showMultiselectPicker = false;
-	let shouldHandleDisplay = true;
 	onMount(() => {
 		const modal = document.querySelector(".quick-input__modal");
 		modal?.addEventListener("click", (e) => {
@@ -56,9 +75,7 @@
 			}
 		});
 	});
-	$: {
-		console.log({ showMultiselectPicker });
-	}
+
 	$: selectedFormClass = showMultiselectPicker ? "form--selected" : "";
 	const preventInput = (e: Event) => {
 		e.preventDefault();
@@ -77,7 +94,7 @@
 			contenteditable={true}
 			id={`selected-items-container`}
 			class={`form-input ${selectedFormClass}`}
-		>	
+		>
 			{#each selectedItemsIdx as idx (idx)}
 				<SuggestItem
 					onClick={() => onDeselect(idx)}
@@ -91,7 +108,7 @@
 					bind:value={searchQuery}
 					class="form-input multiselect__search"
 					type="text"
-					placeholder="Search"
+					placeholder="Search / add"
 				/>
 				<div class="suggestions-container">
 					{#each displayItems as displayItem, idx (idx)}
