@@ -1,9 +1,9 @@
 import { Modal } from "obsidian";
 import ModalLayout from "./UI/ModalLayout.svelte";
 import type QuickInputPlugin from "./main";
-import type { IModalLayoutData } from "./IModalayout";
-import type * as IModalayout from "./IModalayout";
-import type { IForm } from "./IModalayout";
+import type { ILayout } from "./ILayout";
+import type * as IModalayout from "./ILayout";
+import type { IForm } from "./ILayout";
 import FormOutput from './FormOutput';
 
 export default class InputModal extends Modal {

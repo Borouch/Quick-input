@@ -111,7 +111,7 @@
 		color: var(--text-muted);
 	}
 
-	:global(.quick-input__content ._tp-clock) {
+	:global(.quick-input__content  div._tp-clock) {
 		background-color: var(--background-modifier-form-field-highlighted);
 	}
 

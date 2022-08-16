@@ -1,6 +1,6 @@
 import type QuickInputPlugin from "./main";
 import InputModal from './InputModal';
-import type { IForm } from './IModalayout';
+import type { IForm } from './ILayout';
 
 export default class QuickInputAPI {
 	constructor(private plugin: QuickInputPlugin) {}

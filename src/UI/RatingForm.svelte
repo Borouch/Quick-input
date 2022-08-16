@@ -3,17 +3,44 @@
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import { onMount } from "svelte";
 	import FormWrapper from "./FormWrapper.svelte";
-	export let optional:boolean;
-	export let name:string;
-	export let scaleSize: 5 | 10;
+	import FormOutput from "../FormOutput";
+	export let optional: boolean = true;
+	export let scaleSize: 5 | 10 = 5;
+	export let name: string;
 	export let reverseColors = false;
 	export let colors = ["#AB3B3F", "#C94A2C", "#F4B036", "#4BB256", "#24998F"];
+	export let formOutput: FormOutput;
 	if (reverseColors) {
 		colors = colors.reverse();
 	}
-	const ratingValues = new Array(5).fill(0).map((_, i) => i + 1);
-	let selectedValue: number;
+
+	let selectedValue: number | null;
 	let showRatingPicker = false;
+	let output: { name: string; rating: number } | null;
+	let isEnabled = true
+	$: {
+		updateOutputData(selectedValue)
+		removeOutputData(isEnabled)
+	}		
+
+	const removeOutputData = (_isEnabled:boolean)=>{
+		if(!_isEnabled && output){
+			formOutput.ratingForm.remove(output!)
+			selectedValue=null
+			output=null
+			
+		}
+	}
+	const updateOutputData = (_selectedValue: number | null) => {
+		if(isEnabled){
+			if (_selectedValue && !output) {
+				output = { name: name, rating: _selectedValue };
+				formOutput.ratingForm.push(output)
+			} else if (_selectedValue) {
+				output!.rating = _selectedValue!;
+			}
+		}
+	};
 
 	onMount(() => {
 		const modal = document.querySelector(".quick-input__modal");
@@ -29,8 +56,7 @@
 </script>
 
 <div class="rating-form">
-
-	<FormWrapper {optional} {name}>
+	<FormWrapper bind:isEnabled {optional} {name}>
 		<input
 			on:click={() => {
 				showRatingPicker = true;
@@ -55,8 +81,6 @@
 </div>
 
 <style>
-
-
 	#ratings-container {
 		display: flex;
 		flex-direction: column;

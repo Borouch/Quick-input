@@ -17,11 +17,14 @@
 	let selectedItemsIdx: number[] = [];
 	let showMultiselectPicker = false;
 	let shouldHandleDisplay = true;
-
+	
 	let outputData = {
 		name: name,
 		selectItems: [""],
 	};
+
+	$: selectedFormClass = showMultiselectPicker ? "--selected" : "";
+	$: addBtnClass = searchQuery !== "" ? "--active" : "";
 
 	formOutput.multiselectForm.push(outputData);
 
@@ -37,6 +40,7 @@
 	$: {
 		search(searchQuery);
 	}
+
 	const search = (_searchQuery: string) => {
 		const options = {
 			includeScore: true,
@@ -81,8 +85,6 @@
 		});
 	});
 
-	$: selectedFormClass = showMultiselectPicker ? "form--selected" : "";
-	$: addBtnClass = searchQuery !== "" ? "--active" : "";
 
 	const preventInput = (e: Event) => {
 		e.preventDefault();
@@ -116,7 +118,7 @@
 			on:click={() => {
 				showMultiselectPicker = true;
 			}}
-			placeholder="Click to select items"
+			placeholder={"Click to select items"}
 			on:keydown={preventInput}
 			contenteditable={true}
 			id={`selected-items-container`}
@@ -157,7 +159,7 @@
 </div>
 
 <style>
-	.form--selected {
+	.form.--selected {
 		border-color: var(--text-accent);
 		padding: 16px 8px 16px 16px;
 	}

@@ -5,7 +5,7 @@
 	import RatingForm from "./RatingForm.svelte";
 	import type QuickInputPlugin from "src/main";
 	import type FormOutput from "src/FormOutput";
-	import type { IForm } from "../IModalayout";
+	import type { IForm } from "../ILayout";
 	export let plugin: QuickInputPlugin;
 	export let partialLayoutData: IForm[];
 	export let formOutput: FormOutput;

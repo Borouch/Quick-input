@@ -1,20 +1,21 @@
-export interface IModalLayoutData {
-	modalLayout: IForm[];
+export interface ILayout {
+	layout: IForm[];
 }
 
 export interface IForm {
 	name: string;
+	//Default: true
 	optional: boolean;
 	formType: 'Date' | 'Time' | 'Multiselect' | 'Rating'
 }
 
 export interface DateForm extends IForm {
-	// Default yyyy-MM-DD
+	// Default: yyyy-MM-DD
 	dateFormat?: string;
 }
 
 export interface TimeForm extends IForm {
-	// Default HH:mm
+	// Default: HH:mm
 	timeFormat?: string;
 }
 
@@ -26,6 +27,10 @@ export interface MultiSelectForm extends IForm {
 }
 
 export interface RatingForm extends IForm {
+	// Default: 5
 	scaleSize: 5 | 10;
-	colors?: string[]
+	// Default: red, orange, yellow, green, blue
+	colors: string[]
+	// Default: false
+	reverseColors: boolean
 }
