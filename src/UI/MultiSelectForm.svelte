@@ -10,7 +10,7 @@
 	export let optional: boolean = true;
 	export let displayItems: string[];
 	export let actualItems: string[];
-
+	export let customItemCallback: (string)=>string|null=null
 	export let formOutput: FormOutput;
 
 	let filteredItemsIdx: number[] = [];
@@ -86,13 +86,26 @@
 
 	const preventInput = (e: Event) => {
 		e.preventDefault();
+		console.log(e)
 		return false;
 	};
 
 	const addCustomItem = ()=>{
 		displayItems.push(searchQuery)
-		actualItems.push(searchQuery)
+		let actualCustomItem = searchQuery
+		if(customItemCallback){
+
+			actualCustomItem = customItemCallback(searchQuery)
+		}
+		actualItems.push(actualCustomItem)
 		onSelect(displayItems.length-1)
+	}
+	const onEnter = (e:Event)=>{
+		console.log(e)
+		if(e.key === 'Enter'){
+			e.preventDefault()
+			addCustomItem()
+		}
 	}
 </script>
 
@@ -120,6 +133,7 @@
 			<div id="multiselect__suggestions" class="form-input">
 				<div class="multiselect__search-container">
 					<input
+						on:keydown={onEnter}
 						bind:value={searchQuery}
 						class="form-input multiselect__search"
 						type="text"

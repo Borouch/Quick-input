@@ -21,6 +21,8 @@ export interface TimeForm extends IForm {
 export interface MultiSelectForm extends IForm {
 	displayItems: string[];
 	actualItems: string[];
+	// Process added item to actualItem
+	customItemCallback?: (addedItem: string)=>string
 }
 
 export interface RatingForm extends IForm {

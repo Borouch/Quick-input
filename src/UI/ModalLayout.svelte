@@ -12,7 +12,7 @@
 	export let submit: () => void;
 	export let cancel: () => void;
 	interface FullLayoutData {
-		partialForm: IForm;
+		partialLayout: IForm;
 		component: any;
 		formOutput: FormOutput;
 	}
@@ -20,21 +20,21 @@
 	const files = plugin.app.vault.getFiles();
 	const getFullLayoutData = () => {
 		let _fullLayoutData: FullLayoutData[] = [];
-		for (const form of partialLayoutData) {
+		for (const partialLayout of partialLayoutData) {
 			let layoutComponent = null;
 
-			if (form.formType === "Date") {
+			if (partialLayout.formType === "Date") {
 				layoutComponent = DateForm;
-			} else if (form.formType === "Time") {
+			} else if (partialLayout.formType === "Time") {
 				layoutComponent = TimeForm;
-			} else if (form.formType === "Multiselect") {
+			} else if (partialLayout.formType === "Multiselect") {
 				layoutComponent = MultiselectForm;
-			} else if (form.formType === "Rating") {
+			} else if (partialLayout.formType === "Rating") {
 				layoutComponent = RatingForm;
 			}
 
 			let fullLayoutDataEl: FullLayoutData = {
-				partialForm: form,
+				partialLayout: partialLayout,
 				formOutput: formOutput,
 				component: layoutComponent,
 			};
@@ -49,7 +49,7 @@
 {#each fullLayoutData as fullForm (fullForm)}
 	<svelte:component
 		this={fullForm.component}
-		{...fullForm.partialForm}
+		{...fullForm.partialLayout}
 		formOutput={fullForm.formOutput}
 	/>
 {/each}
