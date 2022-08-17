@@ -6,12 +6,12 @@ Currently supported forms:
 - Multiselect
 - Rating
 
-#### API
+### API
 ```ts
 setLayout = async (layoutData: IForm[]) => Promise<FormOutput | null>
 ```
 
-#### Data format
+### Data format
 ```ts
 interface ILayout {
 	layout: IForm[];
@@ -53,7 +53,7 @@ interface RatingForm extends IForm {
 ```
 
 
-#### Example
+### Example
 Example for usage in [chhoumann/quickadd](https://github.com/chhoumann/quickadd) macro with [blacksmithgu/obsidian-dataview](https://github.com/blacksmithgu/obsidian-dataview)  plugin to query files data and [Borouch/YAML-edit (github.com)](https://github.com/Borouch/YAML-edit) plugin to write result to frontmatter
 ```ts
 module.exports = async params => {
@@ -83,3 +83,7 @@ module.exports = async params => {
     yamlApi.update()
   }
 ```
+
+### Support
+If you find this plugin useful consider supporting me in the following way:
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/Borouch)
