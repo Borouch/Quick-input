@@ -21,7 +21,6 @@
 	// 	await tick();
 	// 	document.activeElement?.blur();
 	// })
-
 	const getFullLayoutData = () => {
 		let _fullLayoutData: FullLayoutData[] = [];
 		for (const partialLayout of partialLayoutData) {

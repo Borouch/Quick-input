@@ -1,11 +1,10 @@
 <script lang="ts">
 	import Fuse from "fuse.js";
 	import SuggestItem from "./SuggestItem.svelte";
-	import { onMount, tick, afterUpdate } from "svelte";
+	import { onMount } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
-	import FormOutput from "../FormOutput";
-	import type { sortSearchResults } from "obsidian";
+	import type FormOutput from "../FormOutput";
 	export let name: string;
 	export let optional: boolean = true;
 	export let displayItems: string[];
@@ -20,7 +19,7 @@
 
 	let outputData = {
 		name: name,
-		selectItems: [""],
+		selectItems: [],
 	};
 
 	$: selectedFormClass = showMultiselectPicker ? "--selected" : "";
@@ -34,7 +33,7 @@
 	}
 
 	const updateOutputData = (_selectedItemsIdx: number[]) => {
-		outputData.selectItems = _selectedItemsIdx.map((i) => actualItems[i]);
+		outputData.selectItems = _selectedItemsIdx.map((i) => {return {item: actualItems[i]}});
 	};
 
 	let searchQuery = "";
