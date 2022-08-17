@@ -86,4 +86,5 @@ module.exports = async params => {
 
 ### Support
 If you find this plugin useful consider supporting me in the following way:
+
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/Borouch)
