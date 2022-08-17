@@ -7,7 +7,7 @@ export default class QuickInputAPI {
 	public expose = () => {
 		return this.setLayout;
 	};
-	private setLayout = async (layoutData: IForm[]) => {
-		return await InputModal.quickInput(this.plugin, layoutData);
+	private setLayout = async (data: {title:string, layoutData: IForm[]}) => {
+		return await InputModal.quickInput(this.plugin,data.title, data.layoutData);
 	};
 }

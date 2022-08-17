@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Fuse from "fuse.js";
 	import SuggestItem from "./SuggestItem.svelte";
-	import { onMount } from "svelte";
+	import { onMount, tick, afterUpdate } from "svelte";
 	import { handlePickerDisplay } from "../Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
 	import FormOutput from "../FormOutput";
@@ -10,14 +10,14 @@
 	export let optional: boolean = true;
 	export let displayItems: string[];
 	export let actualItems: string[];
-	export let customItemCallback: (string)=>string|null=null
+	export let customItemCallback: (string) => string | null = null;
 	export let formOutput: FormOutput;
 
 	let filteredItemsIdx: number[] = [];
 	let selectedItemsIdx: number[] = [];
 	let showMultiselectPicker = false;
 	let shouldHandleDisplay = true;
-	
+
 	let outputData = {
 		name: name,
 		selectItems: [""],
@@ -30,6 +30,7 @@
 
 	$: {
 		updateOutputData(selectedItemsIdx);
+		
 	}
 
 	const updateOutputData = (_selectedItemsIdx: number[]) => {
@@ -84,29 +85,27 @@
 		});
 	});
 
-
 	const preventInput = (e: Event) => {
 		e.preventDefault();
 		return false;
 	};
 
-	const addCustomItem = ()=>{
-		displayItems.push(searchQuery)
-		let actualCustomItem = searchQuery
-		if(customItemCallback){
-
-			actualCustomItem = customItemCallback(searchQuery)
+	const addCustomItem = () => {
+		displayItems.push(searchQuery);
+		let actualCustomItem = searchQuery;
+		if (customItemCallback) {
+			actualCustomItem = customItemCallback(searchQuery);
 		}
-		actualItems.push(actualCustomItem)
-		onSelect(displayItems.length-1)
-	}
-	const onEnter = (e:Event)=>{
-		if(e.key === 'Enter'){
-			e.preventDefault()
-			addCustomItem()
+		actualItems.push(actualCustomItem);
+		onSelect(displayItems.length - 1);
+	};
+	const onEnter = (e: Event) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			addCustomItem();
 		}
-	}
-$: placeholder = selectedItemsIdx.length>0 ? "" : "Click to select items"
+	};
+	$: placeholder = selectedItemsIdx.length > 0 ? "" : "Click to select items";
 </script>
 
 <div class="multiselect-form form">
@@ -115,7 +114,7 @@ $: placeholder = selectedItemsIdx.length>0 ? "" : "Click to select items"
 			on:click={() => {
 				showMultiselectPicker = true;
 			}}
-			placeholder={placeholder}
+			{placeholder}
 			tabindex="-1"
 			on:keydown={preventInput}
 			contenteditable={true}
@@ -140,7 +139,10 @@ $: placeholder = selectedItemsIdx.length>0 ? "" : "Click to select items"
 						tabindex="-1"
 						placeholder="Search / add"
 					/>
-					<span on:click={addCustomItem} class={`add-btn ${addBtnClass}`}><span>+</span></span>
+					<span
+						on:click={addCustomItem}
+						class={`add-btn ${addBtnClass}`}><span>+</span></span
+					>
 				</div>
 				<div class="suggestions-container">
 					{#each displayItems as displayItem, idx (idx)}
@@ -158,6 +160,7 @@ $: placeholder = selectedItemsIdx.length>0 ? "" : "Click to select items"
 </div>
 
 <style>
+
 	.form.--selected {
 		border-color: var(--text-accent);
 		padding: 16px 8px 16px 16px;
@@ -212,7 +215,6 @@ $: placeholder = selectedItemsIdx.length>0 ? "" : "Click to select items"
 		flex-wrap: wrap;
 	}
 
-	
 	#selected-items-container::before {
 		content: attr(placeholder);
 		color: var(--text-faint);

@@ -54,7 +54,7 @@ interface RatingForm extends IForm {
 
 
 ### Example
-Example for usage in [chhoumann/quickadd](https://github.com/chhoumann/quickadd) macro with [blacksmithgu/obsidian-dataview](https://github.com/blacksmithgu/obsidian-dataview)  plugin to query files data and [Borouch/YAML-edit (github.com)](https://github.com/Borouch/YAML-edit) plugin to write result to frontmatter
+Example for usage in [chhoumann/quickadd](https://github.com/chhoumann/quickadd) macro with [blacksmithgu/obsidian-dataview](https://github.com/blacksmithgu/obsidian-dataview)  plugin to query files data and [Borouch/YAML-edit](https://github.com/Borouch/YAML-edit) plugin to write result to frontmatter
 ```ts
 module.exports = async params => {
     const dv = app.plugins.plugins.dataview.api

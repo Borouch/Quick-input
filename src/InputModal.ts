@@ -14,16 +14,18 @@ export default class InputModal extends Modal {
 
 	public static quickInput = (
 		plugin: QuickInputPlugin,
+		title: string,
 		layoutData: IForm[]
 	) => {
 		let formOutput: FormOutput = new FormOutput()
 
-		const modal = new InputModal(plugin,layoutData,formOutput)
+		const modal = new InputModal(plugin,title,layoutData,formOutput)
 		return modal.waitForClose
 	};
 
 	constructor(
 		private plugin: QuickInputPlugin,
+		private title: string,
 		private layoutData: IForm[],
 		private formOutput: FormOutput
 	) {
@@ -50,10 +52,10 @@ export default class InputModal extends Modal {
 	}
 
 	public onOpen = (): void => {
-		const { contentEl, modalEl } = this;
+		const { contentEl, modalEl,titleEl } = this;
 		modalEl.addClass("quick-input__modal");
 		contentEl.addClass("quick-input__content");
-
+		titleEl.innerText=this.title
 		new ModalLayout({
 			target: contentEl,
 			props: {
