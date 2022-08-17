@@ -49,7 +49,6 @@
 		const searchResults = fuse
 			.search(searchQuery)
 			.filter((e) => e.score <= 0.5);
-		console.log(searchResults);
 		filteredItemsIdx = searchResults.map((e) => e.refIndex);
 	};
 
@@ -88,7 +87,6 @@
 
 	const preventInput = (e: Event) => {
 		e.preventDefault();
-		console.log(e)
 		return false;
 	};
 
@@ -103,22 +101,22 @@
 		onSelect(displayItems.length-1)
 	}
 	const onEnter = (e:Event)=>{
-		console.log(e)
 		if(e.key === 'Enter'){
 			e.preventDefault()
 			addCustomItem()
 		}
 	}
+$: placeholder = selectedItemsIdx.length>0 ? "" : "Click to select items"
 </script>
 
-
-<div class="multiselect__form">
+<div class="multiselect-form form">
 	<FormWrapper {optional} {name}>
 		<div
 			on:click={() => {
 				showMultiselectPicker = true;
 			}}
-			placeholder={"Click to select items"}
+			placeholder={placeholder}
+			tabindex="-1"
 			on:keydown={preventInput}
 			contenteditable={true}
 			id={`selected-items-container`}
@@ -139,6 +137,7 @@
 						bind:value={searchQuery}
 						class="form-input multiselect__search"
 						type="text"
+						tabindex="-1"
 						placeholder="Search / add"
 					/>
 					<span on:click={addCustomItem} class={`add-btn ${addBtnClass}`}><span>+</span></span>
@@ -201,7 +200,7 @@
 		border-bottom: 1px solid var(--background-modifier-border);
 	}
 
-	.multiselect__form #multiselect__suggestions {
+	.multiselect-form #multiselect__suggestions {
 		padding: 0px;
 	}
 
@@ -211,6 +210,12 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+	}
+
+	
+	#selected-items-container::before {
+		content: attr(placeholder);
+		color: var(--text-faint);
 	}
 
 	.suggestions-container {

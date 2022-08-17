@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount,tick } from 'svelte';
 	import DateForm from "./DateForm.svelte";
 	import TimeForm from "./TimeForm.svelte";
 	import MultiselectForm from "./MultiselectForm.svelte";
@@ -16,8 +17,11 @@
 		component: any;
 		formOutput: FormOutput;
 	}
+	// onMount(async()=>{
+	// 	await tick();
+	// 	document.activeElement?.blur();
+	// })
 
-	const files = plugin.app.vault.getFiles();
 	const getFullLayoutData = () => {
 		let _fullLayoutData: FullLayoutData[] = [];
 		for (const partialLayout of partialLayoutData) {
@@ -60,6 +64,10 @@
 </div>
 
 <style>
+	:global(.form){
+		margin-top:1rem;
+	}
+
 	button:not(.mod-cta) {
 		margin-right: 1rem;
 	}

@@ -43,38 +43,41 @@
 	});
 </script>
 
-<FormWrapper {optional} {name}>
-	<input
-		id="time-input"
-		class="form-input"
-		on:focus={() => {
-			showTimePicker = true;
-		}}
-		type="text"
-		value={window.moment(date).format(timeFormat)}
-	/>
-	{#if showTimePicker}
-		<div id="time-picker-wrapper">
-			<TimePicker
-				options={{
-					color: "var(--text-normal)",
-					hasButtons: true,
-					is24h: true,
-					minutesIncrement: 5,
-				}}
-				bind:date
-				on:cancel={() => {
-					showTimePicker = false;
-					date = initialDate.toDate();
-				}}
-				on:ok={() => {
-					showTimePicker = false;
-					initialDate = window.moment(date);
-				}}
-			/>
-		</div>
-	{/if}
-</FormWrapper>
+<div class="time-form form">
+	<FormWrapper {optional} {name}>
+		<input
+			id="time-input"
+			class="form-input"
+			on:focus={() => {
+				showTimePicker = true;
+			}}
+			type="text"
+			tabindex="-1"
+			value={window.moment(date).format(timeFormat)}
+		/>
+		{#if showTimePicker}
+			<div id="time-picker-wrapper">
+				<TimePicker
+					options={{
+						color: "var(--text-normal)",
+						hasButtons: true,
+						is24h: true,
+						minutesIncrement: 5,
+					}}
+					bind:date
+					on:cancel={() => {
+						showTimePicker = false;
+						date = initialDate.toDate();
+					}}
+					on:ok={() => {
+						showTimePicker = false;
+						initialDate = window.moment(date);
+					}}
+				/>
+			</div>
+		{/if}
+	</FormWrapper>
+</div>
 
 <style>
 	#time-picker-wrapper {
@@ -111,7 +114,7 @@
 		color: var(--text-muted);
 	}
 
-	:global(.quick-input__content  div._tp-clock) {
+	:global(.quick-input__content div._tp-clock) {
 		background-color: var(--background-modifier-form-field-highlighted);
 	}
 

@@ -4,6 +4,7 @@
    scrollbar-width: none !important;
 }
 .quick-input__modal{
+    max-width:560px;
     overflow-y:auto;
     overflow-x: unset;
 }

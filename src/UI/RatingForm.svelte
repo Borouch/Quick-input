@@ -55,7 +55,7 @@
 	});
 </script>
 
-<div class="rating-form">
+<div class="rating-form form">
 	<FormWrapper bind:isEnabled {optional} {name}>
 		<input
 			on:click={() => {
@@ -65,6 +65,7 @@
 			class="form-input"
 			bind:value={selectedValue}
 			type="number"
+			tabindex="-1"
 			placeholder={`1-${scaleSize}`}
 		/>
 		{#if showRatingPicker}

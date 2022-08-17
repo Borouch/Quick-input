@@ -5,7 +5,7 @@
 		localeFromDateFnsLocale,
 	} from "date-picker-svelte";
 	import { enUS } from "date-fns/locale";
-	import { onMount, afterUpdate } from "svelte";
+	import { onMount, tick,afterUpdate } from "svelte";
 	import { handlePickerDisplay } from "src/Helpers/Helpers";
 	import FormWrapper from "./FormWrapper.svelte";
 	import type FormOutput from '../FormOutput';
@@ -61,7 +61,8 @@
 	// 	}
 	// };
 
-	onMount(() => {
+	onMount(async() => {
+
 		const modal = document.querySelector(".quick-input__modal");
 		modal?.addEventListener("click", (e) => {
 			showDatePicker = handlePickerDisplay(
@@ -71,16 +72,19 @@
 				showDatePicker
 			);
 		});
+		
 	});
 </script>
+<div class="date-form form">
 
-<FormWrapper {optional} {name}>
-	<input
+	<FormWrapper {optional} {name}>
+		<input
 		id="date-input"
 		class="form-input"
 		on:focus={() => {
 			showDatePicker = true;
 		}}
+		tabindex="-1"
 		value={window.moment(date).format(dateFormat)}
 		type="text"
 	/>
@@ -96,6 +100,7 @@
 		</div>
 	{/if}
 </FormWrapper>
+</div>
 
 <style>
 	:global(#date-picker-wrapper > .date-time-picker) {
